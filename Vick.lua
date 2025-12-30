@@ -163,21 +163,19 @@ function LoadMainHub()
 -- Botão de Toggle (Ícone)
 local ToggleButton = Instance.new("ImageButton")
 ToggleButton.Name = "ToggleButton"
-ToggleButton.Size = UDim2.new(0, 60, 0, 60)
-ToggleButton.Position = UDim2.new(0, 10, 0.5, -30)
-ToggleButton.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+ToggleButton.Size = UDim2.new(0, 70, 0, 70)
+ToggleButton.Position = UDim2.new(0, 10, 0.5, -35)
+ToggleButton.BackgroundTransparency = 1
 ToggleButton.BorderSizePixel = 0
 ToggleButton.Image = "rbxassetid://18134695440"
 ToggleButton.ScaleType = Enum.ScaleType.Fit
 ToggleButton.Parent = ScreenGui
 
--- Arredondar cantos do botão
-local ToggleCorner = Instance.new("UICorner")
-ToggleCorner.CornerRadius = UDim.new(0, 12)
-ToggleCorner.Parent = ToggleButton
-
--- Arrastar ícone do Toggle
-local iconDragging, iconDragInput, iconDragStart, iconStartPos
+-- Arrastar ícone do Toggle (SUPORTE TOUCH)
+local iconDragging = false
+local iconDragInput = nil
+local iconDragStart = nil
+local iconStartPos = nil
 
 local function updateIconPosition(input)
     local delta = input.Position - iconDragStart
@@ -536,16 +534,16 @@ local jumpPowerButtonCorner = Instance.new("UICorner")
 jumpPowerButtonCorner.CornerRadius = UDim.new(1, 0)
 jumpPowerButtonCorner.Parent = jumpPowerButton
 
--- Lógica do slider de WalkSpeed
+-- Lógica do slider de WalkSpeed (SUPORTE TOUCH)
 local walkSpeedDragging = false
 
 walkSpeedSlider.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         walkSpeedDragging = true
-        local mousePos = UserInputService:GetMouseLocation()
+        local pos = input.Position
         local sliderPos = walkSpeedSlider.AbsolutePosition.X
         local sliderSize = walkSpeedSlider.AbsoluteSize.X
-        local relativePos = math.clamp((mousePos.X - sliderPos) / sliderSize, 0, 1)
+        local relativePos = math.clamp((pos.X - sliderPos) / sliderSize, 0, 1)
         
         DexHub.Speed.WalkSpeed = math.floor(16 + (relativePos * 484))
         walkSpeedLabel.Text = "Velocidade de Caminhada: " .. DexHub.Speed.WalkSpeed
@@ -555,23 +553,23 @@ walkSpeedSlider.InputBegan:Connect(function(input)
 end)
 
 walkSpeedButton.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         walkSpeedDragging = true
     end
 end)
 
 UserInputService.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         walkSpeedDragging = false
     end
 end)
 
 UserInputService.InputChanged:Connect(function(input)
-    if walkSpeedDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-        local mousePos = UserInputService:GetMouseLocation()
+    if walkSpeedDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local pos = input.Position
         local sliderPos = walkSpeedSlider.AbsolutePosition.X
         local sliderSize = walkSpeedSlider.AbsoluteSize.X
-        local relativePos = math.clamp((mousePos.X - sliderPos) / sliderSize, 0, 1)
+        local relativePos = math.clamp((pos.X - sliderPos) / sliderSize, 0, 1)
         
         DexHub.Speed.WalkSpeed = math.floor(16 + (relativePos * 484)) -- 16 a 500
         walkSpeedLabel.Text = "Velocidade de Caminhada: " .. DexHub.Speed.WalkSpeed
@@ -580,16 +578,16 @@ UserInputService.InputChanged:Connect(function(input)
     end
 end)
 
--- Lógica do slider de JumpPower
+-- Lógica do slider de JumpPower (SUPORTE TOUCH)
 local jumpPowerDragging = false
 
 jumpPowerSlider.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         jumpPowerDragging = true
-        local mousePos = UserInputService:GetMouseLocation()
+        local pos = input.Position
         local sliderPos = jumpPowerSlider.AbsolutePosition.X
         local sliderSize = jumpPowerSlider.AbsoluteSize.X
-        local relativePos = math.clamp((mousePos.X - sliderPos) / sliderSize, 0, 1)
+        local relativePos = math.clamp((pos.X - sliderPos) / sliderSize, 0, 1)
         
         DexHub.Speed.JumpPower = math.floor(50 + (relativePos * 450))
         jumpPowerLabel.Text = "Força do Pulo: " .. DexHub.Speed.JumpPower
@@ -599,23 +597,23 @@ jumpPowerSlider.InputBegan:Connect(function(input)
 end)
 
 jumpPowerButton.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         jumpPowerDragging = true
     end
 end)
 
 UserInputService.InputEnded:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         jumpPowerDragging = false
     end
 end)
 
 UserInputService.InputChanged:Connect(function(input)
-    if jumpPowerDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-        local mousePos = UserInputService:GetMouseLocation()
+    if jumpPowerDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local pos = input.Position
         local sliderPos = jumpPowerSlider.AbsolutePosition.X
         local sliderSize = jumpPowerSlider.AbsoluteSize.X
-        local relativePos = math.clamp((mousePos.X - sliderPos) / sliderSize, 0, 1)
+        local relativePos = math.clamp((pos.X - sliderPos) / sliderSize, 0, 1)
         
         DexHub.Speed.JumpPower = math.floor(50 + (relativePos * 450)) -- 50 a 500
         jumpPowerLabel.Text = "Força do Pulo: " .. DexHub.Speed.JumpPower
@@ -690,8 +688,11 @@ ToggleButton.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
 
--- Arrastar GUI
-local dragging, dragInput, dragStart, startPos
+-- Arrastar GUI (SUPORTE TOUCH)
+local dragging = false
+local dragInput = nil
+local dragStart = nil
+local startPos = nil
 
 local function update(input)
     local delta = input.Position - dragStart
@@ -699,7 +700,7 @@ local function update(input)
 end
 
 TitleBar.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
         dragging = true
         dragStart = input.Position
         startPos = MainFrame.Position
@@ -713,7 +714,7 @@ TitleBar.InputBegan:Connect(function(input)
 end)
 
 TitleBar.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement then
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
         dragInput = input
     end
 end)
