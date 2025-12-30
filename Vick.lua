@@ -161,15 +161,55 @@ end)
 function LoadMainHub()
 
 -- Botão de Toggle (Ícone)
-local ToggleButton = Instance.new("ImageButton")
+local ToggleButton = Instance.new("TextButton")
 ToggleButton.Name = "ToggleButton"
 ToggleButton.Size = UDim2.new(0, 70, 0, 70)
 ToggleButton.Position = UDim2.new(0, 10, 0.5, -35)
-ToggleButton.BackgroundTransparency = 1
+ToggleButton.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
 ToggleButton.BorderSizePixel = 0
-ToggleButton.Image = "rbxassetid://18134695440"
-ToggleButton.ScaleType = Enum.ScaleType.Fit
+ToggleButton.Text = ""
 ToggleButton.Parent = ScreenGui
+
+local ToggleCorner = Instance.new("UICorner")
+ToggleCorner.CornerRadius = UDim.new(0.2, 0)
+ToggleCorner.Parent = ToggleButton
+
+local ToggleStroke = Instance.new("UIStroke")
+ToggleStroke.Color = Color3.fromRGB(255, 200, 50)
+ToggleStroke.Thickness = 3
+ToggleStroke.Parent = ToggleButton
+
+-- Gradiente para efeito premium
+local ToggleGradient = Instance.new("UIGradient")
+ToggleGradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 50)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 30))
+}
+ToggleGradient.Rotation = 45
+ToggleGradient.Parent = ToggleButton
+
+-- Ícone de estrela/escudo
+local IconLabel = Instance.new("TextLabel")
+IconLabel.Size = UDim2.new(1, 0, 0.5, 0)
+IconLabel.Position = UDim2.new(0, 0, 0.1, 0)
+IconLabel.BackgroundTransparency = 1
+IconLabel.Text = "⭐"
+IconLabel.TextColor3 = Color3.fromRGB(255, 200, 50)
+IconLabel.TextSize = 32
+IconLabel.Font = Enum.Font.GothamBold
+IconLabel.Parent = ToggleButton
+
+-- Texto do ícone
+local IconText = Instance.new("TextLabel")
+IconText.Size = UDim2.new(1, 0, 0.3, 0)
+IconText.Position = UDim2.new(0, 0, 0.6, 0)
+IconText.BackgroundTransparency = 1
+IconText.Text = "DEX"
+IconText.TextColor3 = Color3.fromRGB(255, 200, 50)
+IconText.TextSize = 14
+IconText.Font = Enum.Font.GothamBold
+IconText.TextStrokeTransparency = 0.7
+IconText.Parent = ToggleButton
 
 -- Arrastar ícone do Toggle (SUPORTE TOUCH)
 local iconDragging = false
