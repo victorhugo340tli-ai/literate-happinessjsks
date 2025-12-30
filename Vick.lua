@@ -167,50 +167,9 @@ ToggleButton.Size = UDim2.new(0, 70, 0, 70)
 ToggleButton.Position = UDim2.new(0, 10, 0.5, -35)
 ToggleButton.BackgroundTransparency = 1
 ToggleButton.BorderSizePixel = 0
-ToggleButton.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
-ToggleButton.ImageColor3 = Color3.fromRGB(255, 200, 50)
+ToggleButton.Image = "rbxassetid://18134695440"
+ToggleButton.ScaleType = Enum.ScaleType.Fit
 ToggleButton.Parent = ScreenGui
-
--- Criar frame decorativo para o ícone
-local IconFrame = Instance.new("Frame")
-IconFrame.Name = "IconFrame"
-IconFrame.Size = UDim2.new(1, 0, 1, 0)
-IconFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
-IconFrame.BorderSizePixel = 3
-IconFrame.BorderColor3 = Color3.fromRGB(255, 200, 50)
-IconFrame.Parent = ToggleButton
-
-local IconCorner = Instance.new("UICorner")
-IconCorner.CornerRadius = UDim.new(0.15, 0)
-IconCorner.Parent = IconFrame
-
-local IconStroke = Instance.new("UIStroke")
-IconStroke.Color = Color3.fromRGB(255, 200, 50)
-IconStroke.Thickness = 3
-IconStroke.Parent = IconFrame
-
--- Texto do ícone
-local IconText = Instance.new("TextLabel")
-IconText.Size = UDim2.new(1, 0, 0.5, 0)
-IconText.Position = UDim2.new(0, 0, 0.25, 0)
-IconText.BackgroundTransparency = 1
-IconText.Text = "DEX"
-IconText.TextColor3 = Color3.fromRGB(255, 200, 50)
-IconText.TextSize = 18
-IconText.Font = Enum.Font.GothamBold
-IconText.TextStrokeTransparency = 0.5
-IconText.Parent = IconFrame
-
-local IconSubText = Instance.new("TextLabel")
-IconSubText.Size = UDim2.new(1, 0, 0.3, 0)
-IconSubText.Position = UDim2.new(0, 0, 0.55, 0)
-IconSubText.BackgroundTransparency = 1
-IconSubText.Text = "HUB"
-IconSubText.TextColor3 = Color3.fromRGB(255, 200, 50)
-IconSubText.TextSize = 14
-IconSubText.Font = Enum.Font.GothamBold
-IconSubText.TextStrokeTransparency = 0.5
-IconSubText.Parent = IconFrame
 
 -- Arrastar ícone do Toggle (SUPORTE TOUCH)
 local iconDragging = false
